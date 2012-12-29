@@ -1,0 +1,25 @@
+{
+    "name": "br/signed-request-bundle",
+    "description": "Symfony2 Bundle that provides request and response signing",
+    "keywords": ["Symfony2", "Request", "Response", "Signing", "Private Key"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baldur Rensch",
+            "email": "brensch@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/routing": ">=2.1.0, <= 2.2.99",
+        "symfony/http-kernel": ">=2.1.0, <= 2.2.99",
+        "symfony/framework-bundle": ">=2.1.0, <= 2.2.99"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-0": { "BR\\SignedRequestBundle": "" }
+    },
+    "target-dir": "BR/SignedRequestBundle",
+    "minimum-stability": "dev"
+}
