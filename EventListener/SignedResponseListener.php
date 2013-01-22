@@ -27,7 +27,6 @@ class SignedResponseListener
         $responseContent = $event->getResponse()->getContent();
 
         $hashed = md5($responseContent . $this->salt);
-        // $hashFromRequest = $event->getRequest()->headers->get('X-SignedRequest');
 
         $event->getResponse()->headers->set('X-SignedRequest', $hashed);
     }

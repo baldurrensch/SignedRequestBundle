@@ -73,10 +73,6 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
 
     protected function setupEvent($headerValue)
     {
-        $this->event = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->event->expects($this->once())->method('getRequestType')
             ->will($this->returnValue(HttpKernel::MASTER_REQUEST));
 

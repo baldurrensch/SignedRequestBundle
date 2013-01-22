@@ -1,2 +1,4 @@
 # Symfony directories
 vendor/*
+
+composer.lock
