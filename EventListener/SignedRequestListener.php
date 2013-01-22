@@ -19,7 +19,7 @@ class SignedRequestListener
     {
         $this->salt       = $salt;
         $this->statusCode = $statusCode;
-        $this->response    = $response;
+        $this->response   = $response;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
