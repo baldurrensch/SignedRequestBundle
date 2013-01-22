@@ -11,16 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SignedRequestListener
 {
-	private $salt;
-	private $statusCode;
-	private $response;
+    private $salt;
+    private $statusCode;
+    private $response;
 
-	public function __construct($salt, $statusCode, $response)
-	{
-		$this->salt       = $salt;
-		$this->statusCode = $statusCode;
-		$this->response    = $response;
-	}
+    public function __construct($salt, $statusCode, $response)
+    {
+        $this->salt       = $salt;
+        $this->statusCode = $statusCode;
+        $this->response    = $response;
+    }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -36,7 +36,7 @@ class SignedRequestListener
         $hashFromRequest = $event->getRequest()->headers->get('X-SignedRequest');
 
         if ($hashed != $hashFromRequest) {
-        	$event->setResponse(new Response($this->response, $this->statusCode));
+            $event->setResponse(new Response($this->response, $this->statusCode));
         }
     }
 }

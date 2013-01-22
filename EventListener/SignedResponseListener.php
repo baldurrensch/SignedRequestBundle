@@ -10,12 +10,12 @@ use Symfony\Component\HttpKernel\HttpKernel;
  */
 class SignedResponseListener
 {
-	private $salt;
+    private $salt;
 
-	public function __construct($salt)
-	{
-		$this->salt = $salt;
-	}
+    public function __construct($salt)
+    {
+        $this->salt = $salt;
+    }
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
