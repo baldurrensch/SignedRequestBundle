@@ -39,7 +39,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new BR\BRSignedRequestBundle(),
+        new BR\SignedRequestBundle\BRSignedRequestBundle(),
         // ...
     );
 }
@@ -60,6 +60,5 @@ br_signed_request:
 
 ## To Do & Future plans
 
-- Functional tests
 - Ability to selectively turn on the two listeners
 - Provide the ability to tie in a custom signing service that will be used (This would then allow dynamic keys)!

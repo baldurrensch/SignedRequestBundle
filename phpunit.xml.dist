@@ -4,7 +4,7 @@
         >
 
     <testsuites>
-        <testsuite name="FSCHateoasBundle Test Suite">
+        <testsuite name="SignedRequestBundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>

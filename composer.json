@@ -16,7 +16,12 @@
         "symfony/http-kernel": ">=2.1.0, <= 2.2.99",
         "symfony/framework-bundle": ">=2.1.0, <= 2.2.99"
     },
-    "require-dev": {},
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "symfony/yaml": "*",
+        "symfony/browser-kit": "*",
+        "symfony/form": "*"
+    },
     "autoload": {
         "psr-0": { "BR\\SignedRequestBundle": "" }
     },
