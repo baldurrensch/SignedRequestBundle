@@ -53,12 +53,13 @@ To configure the bundle, edit your `config.yml`, or `config_{environment}.yml`:
 # Signed Request Bundle
 br_signed_request:
     salt: SALT_HERE
+    request_listener_enabled: true      # default
+    response_listener_enabled: true     # default
     signature_mismatch:                 # optional
         status_code: 400
         response: Failed validation
 ```
 
 ## To Do & Future plans
-
-- Ability to selectively turn on the two listeners
+- Ability to put the request listener in "verify" mode. Just check whether teh signature is correct and add another header then.
 - Provide the ability to tie in a custom signing service that will be used (This would then allow dynamic keys)!

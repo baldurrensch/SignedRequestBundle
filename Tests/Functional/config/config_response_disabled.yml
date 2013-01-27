@@ -1,0 +1,5 @@
+imports:
+    - { resource: config_test.yml }
+
+br_signed_request:
+    response_listener_enabled: false

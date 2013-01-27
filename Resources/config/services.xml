@@ -5,23 +5,23 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="br_signed_request.request_listener.class">BR\SignedRequestBundle\EventListener\SignedRequestListener</parameter>
-        <parameter key="br_signed_request.response_listener.class">BR\SignedRequestBundle\EventListener\SignedResponseListener</parameter>
+        <parameter key="br_signed_request.listener.request.class">BR\SignedRequestBundle\EventListener\SignedRequestListener</parameter>
+        <parameter key="br_signed_request.listener.response.class">BR\SignedRequestBundle\EventListener\SignedResponseListener</parameter>
         <parameter key="br_signed_request.salt"></parameter>
         <parameter key="br_signed_request.signature_mismatch.status_code"></parameter>
         <parameter key="br_signed_request.signature_mismatch.response"></parameter>
+        <parameter key="br_signed_request.request_listener.enabled"></parameter>
+        <parameter key="br_signed_request.response_listener.enabled"></parameter>
     </parameters>
 
     <services>
-        <service id="kernel.listener.br.signed_request" class="%br_signed_request.request_listener.class%">
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+        <service id="br_signed_request.listener.request" class="%br_signed_request.listener.request.class%">
             <argument>%br_signed_request.salt%</argument>
             <argument>%br_signed_request.signature_mismatch.status_code%</argument>
             <argument>%br_signed_request.signature_mismatch.response%</argument>
         </service>
 
-        <service id="kernel.listener.br.signed_response" class="%br_signed_request.response_listener.class%">
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+        <service id="br_signed_request.listener.response" class="%br_signed_request.listener.response.class%">
             <argument>%br_signed_request.salt%</argument>
         </service>
     </services>
