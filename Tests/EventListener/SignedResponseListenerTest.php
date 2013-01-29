@@ -6,6 +6,7 @@ use BR\SignedRequestBundle\EventListener\SignedResponseListener;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent as Event;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpFoundation\Request;
+use BR\SignedRequestBundle\Service\MD5SigningService as SigningService;
 
 class SignedResponseListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +28,7 @@ class SignedResponseListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->request));
 
         $this->listener = new SignedResponseListener($this->salt);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelResponse($this->event);
     }
 
@@ -55,6 +57,7 @@ class SignedResponseListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->response));
 
         $this->listener = new SignedResponseListener($this->salt);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelResponse($this->event);
     }
 

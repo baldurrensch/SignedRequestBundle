@@ -4,6 +4,7 @@ SignedRequestBundle
 Symfony 2 bundle that provides request and response signing
 
 [![Build Status](https://travis-ci.org/baldurrensch/SignedRequestBundle.png?branch=master)](https://travis-ci.org/baldurrensch/SignedRequestBundle)
+[![Dependencies](http://dependency.me/repository/image/baldurrensch/SignedRequestBundle/master)](http://dependency.me/repository/branche/baldurrensch/SignedRequestBundle/master)
 
 ## Introduction
 
@@ -60,6 +61,11 @@ br_signed_request:
         response: Failed validation
 ```
 
+## Providing your own signing service
+
+You can provide your own signing service by tagging your service as `br_signed_request.signing_service` and
+implementing the `Service\SigningServiceInterface`. The bundle will then call the respective functions of your
+service. You can take a look at the default service that is used (that just uses MD5) to see how it is setup.
+
 ## To Do & Future plans
 - Ability to put the request listener in "verify" mode. Just check whether teh signature is correct and add another header then.
-- Provide the ability to tie in a custom signing service that will be used (This would then allow dynamic keys)!
