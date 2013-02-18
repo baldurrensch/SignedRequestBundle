@@ -18,6 +18,11 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
     private $statusCode = 400;
     private $response = 'Major fail';
 
+    private $event;
+    private $request;
+    private $listener;
+    private $headers;
+
     public function testSubrequestReturns()
     {
         $this->event->expects($this->once())->method('getRequestType')

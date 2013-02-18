@@ -13,6 +13,12 @@ class SignedResponseListenerTest extends \PHPUnit_Framework_TestCase
     const GOOD_HASH = '3daf6f1b5c482e2c874ffbf8b440f670';
     private $salt = 'abc';
 
+    private $event;
+    private $request;
+    private $listener;
+    private $response;
+    private $headers;
+
     public function testSubrequestReturns()
     {
         $this->event->expects($this->once())->method('getRequestType')

@@ -25,7 +25,7 @@ class ConfigurationCheckPass implements CompilerPassInterface
 
         $listeners = array('request', 'response');
         foreach ($listeners as $listener) {
-            if ($enabled = $container->getParameter('br_signed_request.' . $listener . '_listener.enabled')) {
+            if ($container->getParameter('br_signed_request.' . $listener . '_listener.enabled')) {
                 $definition = $container->getDefinition('br_signed_request.listener.' . $listener);
 
                 $definition->addTag('kernel.event_listener', array(
