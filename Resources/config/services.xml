@@ -7,11 +7,14 @@
     <parameters>
         <parameter key="br_signed_request.listener.request.class">BR\SignedRequestBundle\EventListener\SignedRequestListener</parameter>
         <parameter key="br_signed_request.listener.response.class">BR\SignedRequestBundle\EventListener\SignedResponseListener</parameter>
+        <parameter key="br_signed_request.signing_service.md5.class">BR\SignedRequestBundle\Service\MD5SigningService</parameter>
+
         <parameter key="br_signed_request.salt"></parameter>
         <parameter key="br_signed_request.signature_mismatch.status_code"></parameter>
         <parameter key="br_signed_request.signature_mismatch.response"></parameter>
         <parameter key="br_signed_request.request_listener.enabled"></parameter>
         <parameter key="br_signed_request.response_listener.enabled"></parameter>
+        <parameter key="br_signed_request.signing_service"></parameter>
     </parameters>
 
     <services>
@@ -23,6 +26,9 @@
 
         <service id="br_signed_request.listener.response" class="%br_signed_request.listener.response.class%">
             <argument>%br_signed_request.salt%</argument>
+        </service>
+
+        <service id="br_signed_request.signing_service.md5" class="%br_signed_request.signing_service.md5.class%">
         </service>
     </services>
 

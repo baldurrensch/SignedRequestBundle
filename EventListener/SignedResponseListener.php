@@ -4,6 +4,7 @@ namespace BR\SignedRequestBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
+use BR\SignedRequestBundle\Service\SigningServiceInterface;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
@@ -11,6 +12,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
 class SignedResponseListener
 {
     private $salt;
+    private $signingService;
 
     public function __construct($salt)
     {
@@ -24,10 +26,13 @@ class SignedResponseListener
             return;
         }
 
-        $responseContent = $event->getResponse()->getContent();
-
-        $hashed = md5($responseContent . $this->salt);
+        $hashed = $this->signingService->createResponseSignature($event->getResponse(), $this->salt);
 
         $event->getResponse()->headers->set('X-SignedRequest', $hashed);
+    }
+
+    public function setSigningService(SigningServiceInterface $service)
+    {
+        $this->signingService = $service;
     }
 }

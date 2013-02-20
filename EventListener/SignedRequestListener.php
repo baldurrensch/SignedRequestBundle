@@ -5,6 +5,7 @@ namespace BR\SignedRequestBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpFoundation\Response;
+use BR\SignedRequestBundle\Service\SigningServiceInterface;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
@@ -14,6 +15,7 @@ class SignedRequestListener
     private $salt;
     private $statusCode;
     private $response;
+    private $signingService;
 
     public function __construct($salt, $statusCode, $response)
     {
@@ -29,14 +31,16 @@ class SignedRequestListener
             return;
         }
 
-        $requestUri = $event->getRequest()->getRequestUri();
-        $content    = $event->getRequest()->getContent();
-
-        $hashed = md5($requestUri . $content . $this->salt);
+        $hashed = $this->signingService->createRequestSignature($event->getRequest(), $this->salt);
         $hashFromRequest = $event->getRequest()->headers->get('X-SignedRequest');
 
         if ($hashed != $hashFromRequest) {
             $event->setResponse(new Response($this->response, $this->statusCode));
         }
+    }
+
+    public function setSigningService(SigningServiceInterface $service)
+    {
+        $this->signingService = $service;
     }
 }

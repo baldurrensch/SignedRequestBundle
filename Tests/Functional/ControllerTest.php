@@ -2,8 +2,6 @@
 
 namespace BR\SignedRequestBundle\Tests\Functional;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * @group functional
  */
@@ -80,8 +78,6 @@ class ControllerTest extends TestCase
         $client->request('GET', '/test');
 
         $response = $client->getResponse();
-
-        $expectedSignature = md5('TestResponse' . 'testsalt');
 
         $this->assertNull($response->headers->get('x-signedrequest'));
         $this->assertEquals(200, $response->getStatusCode());

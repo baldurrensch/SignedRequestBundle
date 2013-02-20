@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent as Event;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use BR\SignedRequestBundle\Service\MD5SigningService as SigningService;
 
 class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,6 +17,11 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
     private $salt = 'abc';
     private $statusCode = 400;
     private $response = 'Major fail';
+
+    private $event;
+    private $request;
+    private $listener;
+    private $headers;
 
     public function testSubrequestReturns()
     {
@@ -32,6 +38,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->request));
 
         $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
 
@@ -42,6 +49,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
         $this->event->expects($this->never())->method('setResponse');
 
         $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
 
@@ -55,6 +63,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
             ->with($failResponse);
 
         $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
 
@@ -68,6 +77,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
             ->with($failResponse);
 
         $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
 

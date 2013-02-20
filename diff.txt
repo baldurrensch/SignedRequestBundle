@@ -1,0 +1,37 @@
+diff --git a/Tests/Functional/ControllerTest.php b/Tests/Functional/ControllerTest.php
+--- a/Tests/Functional/ControllerTest.php
++++ b/Tests/Functional/ControllerTest.php
+@@ -2,8 +2,6 @@
+ 
+ namespace BR\SignedRequestBundle\Tests\Functional;
+ 
+-use Symfony\Component\HttpFoundation\Response;
+-
+ /**
+  * @group functional
+  */
+
+diff --git a/EventListener/SignedRequestListener.php b/EventListener/SignedRequestListener.php
+--- a/EventListener/SignedRequestListener.php
++++ b/EventListener/SignedRequestListener.php
+@@ -5,7 +5,6 @@ namespace BR\SignedRequestBundle\EventListener;
+ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+ use Symfony\Component\HttpKernel\HttpKernel;
+ use Symfony\Component\HttpFoundation\Response;
+-
+ use BR\SignedRequestBundle\Service\SigningServiceInterface;
+ 
+ /**
+
+diff --git a/EventListener/SignedResponseListener.php b/EventListener/SignedResponseListener.php
+--- a/EventListener/SignedResponseListener.php
++++ b/EventListener/SignedResponseListener.php
+@@ -4,7 +4,6 @@ namespace BR\SignedRequestBundle\EventListener;
+ 
+ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+ use Symfony\Component\HttpKernel\HttpKernel;
+-
+ use BR\SignedRequestBundle\Service\SigningServiceInterface;
+ 
+ /**
+
