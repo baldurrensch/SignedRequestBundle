@@ -2,8 +2,6 @@
 
 namespace BR\SignedRequestBundle\Tests\Functional;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * @group functional
  */

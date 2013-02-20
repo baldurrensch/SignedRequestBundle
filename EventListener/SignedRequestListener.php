@@ -5,7 +5,6 @@ namespace BR\SignedRequestBundle\EventListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpFoundation\Response;
-
 use BR\SignedRequestBundle\Service\SigningServiceInterface;
 
 /**

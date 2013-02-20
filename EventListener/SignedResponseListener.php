@@ -4,7 +4,6 @@ namespace BR\SignedRequestBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
-
 use BR\SignedRequestBundle\Service\SigningServiceInterface;
 
 /**
