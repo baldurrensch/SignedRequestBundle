@@ -81,8 +81,6 @@ class ControllerTest extends TestCase
 
         $response = $client->getResponse();
 
-        $expectedSignature = md5('TestResponse' . 'testsalt');
-
         $this->assertNull($response->headers->get('x-signedrequest'));
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('TestResponse', $response->getContent());
