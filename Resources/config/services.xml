@@ -22,6 +22,8 @@
             <argument>%br_signed_request.salt%</argument>
             <argument>%br_signed_request.signature_mismatch.status_code%</argument>
             <argument>%br_signed_request.signature_mismatch.response%</argument>
+            <argument type="service" id="event_dispatcher" />
+            <argument>%br_signed_request.debug%</argument>
         </service>
 
         <service id="br_signed_request.listener.response" class="%br_signed_request.listener.response.class%">

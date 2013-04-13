@@ -83,4 +83,35 @@ class ControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('TestResponse', $response->getContent());
     }
+
+    public function testSignaturesForDebug()
+    {
+        return array(
+            array(md5('/test' . 'testsalt'), 'true'),
+            array(md5('/test' . 'testsaltWrong'), 'false'),
+            array(null, 'false'),
+            array('', 'false'),
+        );
+    }
+
+    /**
+     * @param string $requestSignature
+     * @param string $debugResponse
+     * @dataProvider testSignaturesForDebug
+     */
+    public function testDebugEnabled($requestSignature, $debugResponse)
+    {
+        $client = $this->createClient(array('environment' => 'debug'));
+
+        $client->request('GET', '/test', array(), array(), array('HTTP_X-SignedRequest' => $requestSignature));
+
+        $response = $client->getResponse();
+
+        $expectedSignature = md5('TestResponse' . 'testsalt');
+
+        $this->assertEquals($expectedSignature, $response->headers->get('x-signedrequest'));
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('TestResponse', $response->getContent());
+        $this->assertEquals($debugResponse, $response->headers->get('x-signedrequest-debug'));
+    }
 }

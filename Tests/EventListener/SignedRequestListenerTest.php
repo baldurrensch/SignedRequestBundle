@@ -8,11 +8,14 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use BR\SignedRequestBundle\Service\MD5SigningService as SigningService;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
 {
     const GOOD_HASH = '4285efb8202976e28bc8bae1b4715c00';
     const BAD_HASH  = '4xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+    private $eventDispatcher;
 
     private $salt = 'abc';
     private $statusCode = 400;
@@ -37,7 +40,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
         $this->event->expects($this->never())->method('getRequest')
             ->will($this->returnValue($this->request));
 
-        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response, $this->eventDispatcher);
         $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
@@ -48,7 +51,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->event->expects($this->never())->method('setResponse');
 
-        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response, $this->eventDispatcher);
         $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
@@ -62,7 +65,7 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
         $this->event->expects($this->once())->method('setResponse')
             ->with($failResponse);
 
-        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response, $this->eventDispatcher);
         $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
@@ -76,7 +79,35 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
         $this->event->expects($this->once())->method('setResponse')
             ->with($failResponse);
 
-        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response);
+        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response, $this->eventDispatcher);
+        $this->listener->setSigningService(new SigningService());
+        $this->listener->onKernelRequest($this->event);
+    }
+
+    public function debugModeDataProvider()
+    {
+        return array(
+            array(self::GOOD_HASH, 'addDebugResponseMatch'),
+            array(self::BAD_HASH, 'addDebugResponseMismatch'),
+        );
+    }
+
+    /**
+     * @param string $hash
+     * @param string $eventListener
+     * @dataProvider debugModeDataProvider
+     */
+    public function testDebugModeMatch($hash, $eventListener)
+    {
+        $this->setupEvent($hash);
+
+        $this->event->expects($this->never())->method('setResponse');
+
+        $this->listener = new SignedRequestListener($this->salt, $this->statusCode, $this->response, $this->eventDispatcher, true);
+
+        $this->eventDispatcher->expects($this->once())->method('addListener')
+            ->with(KernelEvents::RESPONSE, array($this->listener, $eventListener));
+
         $this->listener->setSigningService(new SigningService());
         $this->listener->onKernelRequest($this->event);
     }
@@ -113,6 +144,10 @@ class SignedRequestListenerTest extends \PHPUnit_Framework_TestCase
     protected function setup()
     {
          $this->event = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->eventDispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
             ->disableOriginalConstructor()
             ->getMock();
     }

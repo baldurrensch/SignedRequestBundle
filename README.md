@@ -54,12 +54,17 @@ To configure the bundle, edit your `config.yml`, or `config_{environment}.yml`:
 # Signed Request Bundle
 br_signed_request:
     salt: SALT_HERE
+    debug: %kernel.debug%
     request_listener_enabled: true      # default
     response_listener_enabled: true     # default
     signature_mismatch:                 # optional
         status_code: 400
         response: Failed validation
 ```
+
+If you put the listeners into `debug` mode, the request listener will always pass through the request, it will add a
+`X-SignedRequest-Debug` header though, that will either contain "true" or "false" depending on whether the signature
+was correct.
 
 ## Providing your own signing service
 
@@ -68,4 +73,4 @@ implementing the `Service\SigningServiceInterface`. The bundle will then call th
 service. You can take a look at the default service that is used (that just uses MD5) to see how it is setup.
 
 ## To Do & Future plans
-- Ability to put the request listener in "verify" mode. Just check whether teh signature is correct and add another header then.
+None right now! Please et me know if you are having issues, or want to see a specific feature.
