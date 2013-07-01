@@ -72,5 +72,47 @@ You can provide your own signing service by tagging your service as `br_signed_r
 implementing the `Service\SigningServiceInterface`. The bundle will then call the respective functions of your
 service. You can take a look at the default service that is used (that just uses MD5) to see how it is setup.
 
+## Using the signed request annotation
+
+Instead of checking every request for a signature you can also add an annotation on single controller functions. For
+using that you would have to set request_listener_enabled to false. Additionally you need the following entry in your
+config.yml:
+
+```yml
+    signed_request_annotation_driver:
+        class: BR\SignedRequestBundle\Annotations\Driver\AnnotationDriver
+        tags:
+            - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+        arguments:
+            - @annotation_reader
+            - "%br_signed_request.salt%"
+            - "%br_signed_request.signature_mismatch.status_code%"
+            - "%br_signed_request.signature_mismatch.response%"
+            - @event_dispatcher
+            - @br_signed_request.signing_service.md5 # or your custom signing service id
+            - "%br_signed_request.debug%"
+```
+
+After doing that you can use the annotation in your controllers like that:
+
+```php
+<?php
+
+namespace Acme\YourBundle\Controller;
+
+use BR\SignedRequestBundle\Annotations\SignedRequest;
+
+...
+
+    /**
+     * @SignedRequest
+     */
+    public function newAction()
+    {
+        ...
+    }
+...
+```
+
 ## To Do & Future plans
 None right now! Please et me know if you are having issues, or want to see a specific feature.

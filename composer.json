@@ -15,7 +15,8 @@
         "symfony/routing": ">=2.1, <2.4-dev",
         "symfony/http-kernel": ">=2.1, <2.4-dev",
         "symfony/framework-bundle": ">=2.1, <2.4-dev",
-        "symfony/event-dispatcher": ">=2.1, <2.4-dev"
+        "symfony/event-dispatcher": ">=2.1, <2.4-dev",
+        "doctrine/common": "2.4.*@dev"
     },
     "require-dev": {
         "symfony/class-loader": "*",
