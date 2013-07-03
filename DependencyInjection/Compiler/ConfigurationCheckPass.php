@@ -25,17 +25,17 @@ class ConfigurationCheckPass implements CompilerPassInterface
 
         $listeners = array('request', 'response');
         foreach ($listeners as $listener) {
-            if ($container->getParameter('br_signed_request.' . $listener . '_listener.enabled')) {
-                $definition = $container->getDefinition('br_signed_request.listener.' . $listener);
+            $definition = $container->getDefinition('br_signed_request.listener.' . $listener);
 
+            if ($container->getParameter('br_signed_request.' . $listener . '_listener.enabled')) {
                 $definition->addTag('kernel.event_listener', array(
                         'event'  => 'kernel.' . $listener,
                         'method' => 'onKernel' . ucfirst($listener),
                     )
                 );
-
-                $definition->addMethodCall('setSigningService', array($signingService));
             }
+
+            $definition->addMethodCall('setSigningService', array($signingService));
         }
     }
 }

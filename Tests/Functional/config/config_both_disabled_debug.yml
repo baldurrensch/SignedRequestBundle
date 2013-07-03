@@ -1,0 +1,4 @@
+imports:
+    - { resource: config_debug.yml }
+    - { resource: config_request_disabled.yml }
+    - { resource: config_response_disabled.yml }

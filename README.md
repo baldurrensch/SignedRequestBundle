@@ -75,25 +75,9 @@ service. You can take a look at the default service that is used (that just uses
 ## Using the signed request annotation
 
 Instead of checking every request for a signature you can also add an annotation on single controller functions. For
-using that you would have to set request_listener_enabled to false. Additionally you need the following entry in your
-config.yml:
+using that you would have to set request_listener_enabled to false.
 
-```yml
-    signed_request_annotation_driver:
-        class: BR\SignedRequestBundle\Annotations\Driver\AnnotationDriver
-        tags:
-            - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
-        arguments:
-            - @annotation_reader
-            - "%br_signed_request.salt%"
-            - "%br_signed_request.signature_mismatch.status_code%"
-            - "%br_signed_request.signature_mismatch.response%"
-            - @event_dispatcher
-            - @br_signed_request.signing_service.md5 # or your custom signing service id
-            - "%br_signed_request.debug%"
-```
-
-After doing that you can use the annotation in your controllers like that:
+Simply add the annotation in your controllers like that:
 
 ```php
 <?php

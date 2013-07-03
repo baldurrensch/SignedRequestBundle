@@ -46,11 +46,11 @@ class SignedRequestListener
     private $eventDispatcher;
 
     /**
-     * @param string                $salt
-     * @param int                   $statusCode
-     * @param string                $response
-     * @param EventDispatcher       $eventDispatcher
-     * @param bool                  $debug
+     * @param string          $salt
+     * @param int             $statusCode
+     * @param string          $response
+     * @param EventDispatcher $eventDispatcher
+     * @param bool            $debug
      */
     public function __construct($salt, $statusCode, $response, EventDispatcher $eventDispatcher, $debug = false)
     {
@@ -74,7 +74,6 @@ class SignedRequestListener
         $hashed = $this->signingService->createRequestSignature($event->getRequest(), $this->salt);
         $hashFromRequest = $event->getRequest()->headers->get('X-SignedRequest');
 
-
         if ($hashed != $hashFromRequest) {
             if (!$this->debug) {
                 $event->setResponse(new Response($this->response, $this->statusCode));
@@ -82,7 +81,9 @@ class SignedRequestListener
                 $this->eventDispatcher->addListener(KernelEvents::RESPONSE, array($this, 'addDebugResponseMismatch'));
             }
         } else {
-            $this->eventDispatcher->addListener(KernelEvents::RESPONSE, array($this, 'addDebugResponseMatch'));
+            if ($this->debug) {
+                $this->eventDispatcher->addListener(KernelEvents::RESPONSE, array($this, 'addDebugResponseMatch'));
+            }
         }
     }
 

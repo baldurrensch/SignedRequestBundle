@@ -11,7 +11,14 @@ use BR\SignedRequestBundle\Service\SigningServiceInterface;
  */
 class SignedResponseListener
 {
+    /**
+     * @var string
+     */
     private $salt;
+
+    /**
+     * @var SigningServiceInterface
+     */
     private $signingService;
 
     public function __construct($salt)
