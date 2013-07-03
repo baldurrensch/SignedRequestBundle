@@ -4,7 +4,7 @@ SignedRequestBundle
 Symfony 2 bundle that provides request and response signing
 
 [![Build Status](https://travis-ci.org/baldurrensch/SignedRequestBundle.png?branch=master)](https://travis-ci.org/baldurrensch/SignedRequestBundle)
-[![Dependencies](http://dependency.me/repository/image/baldurrensch/SignedRequestBundle/master)](http://dependency.me/repository/branche/baldurrensch/SignedRequestBundle/master)
+[![Latest Stable Version](https://poser.pugx.org/br/signed-request-bundle/v/stable.png)](https://packagist.org/packages/br/signed-request-bundle)
 
 ## Introduction
 
@@ -74,8 +74,8 @@ service. You can take a look at the default service that is used (that just uses
 
 ## Using the signed request annotation
 
-Instead of checking every request for a signature you can also add an annotation on single controller functions. For
-using that you would have to set request_listener_enabled to false.
+Instead of checking every request for a signature you can also add an annotation on a single controller function. In
+order to use that you would have to set `request_listener_enabled` to `false`.
 
 Simply add the annotation in your controllers like that:
 
@@ -99,4 +99,6 @@ use BR\SignedRequestBundle\Annotations\SignedRequest;
 ```
 
 ## To Do & Future plans
-None right now! Please et me know if you are having issues, or want to see a specific feature.
+
+- Implement a `@SignedResponse` annotation.
+
