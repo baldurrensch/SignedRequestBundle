@@ -27,5 +27,5 @@
         "psr-0": { "BR\\SignedRequestBundle": "" }
     },
     "target-dir": "BR/SignedRequestBundle",
-    "minimum-stability": "dev"
+    "minimum-stability": "alpha"
 }
