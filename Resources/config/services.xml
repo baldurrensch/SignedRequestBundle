@@ -37,6 +37,8 @@
         <service id="signed_request_annotation_driver" class="%br_signed_request.annotation_driver.class%">
             <argument type="service" id="annotation_reader" />
             <argument type="service" id="br_signed_request.listener.request" />
+            <argument type="service" id="br_signed_request.listener.response" />
+            <argument type="service" id="event_dispatcher" />
             <argument>%br_signed_request.debug%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
