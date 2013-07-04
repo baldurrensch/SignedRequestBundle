@@ -9,7 +9,6 @@ use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpFoundation\Response;
 use BR\SignedRequestBundle\Annotations\SignedRequest;
 use BR\SignedRequestBundle\EventListener\SignedRequestListener;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -84,6 +83,7 @@ class AnnotationDriver
         $className = ClassUtils::getClass($object);
 
         $reflectionClass = new \ReflectionClass($className);
+        /** @var $reflectionMethod \ReflectionMethod */
         $reflectionMethod = $reflectionClass->getMethod($method);
 
         $allAnnotations = $this->reader->getMethodAnnotations($reflectionMethod);
