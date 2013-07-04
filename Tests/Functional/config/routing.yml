@@ -3,7 +3,17 @@ api_root:
     defaults:
         _controller: TestBundle:Root:test
 
-endpoint_with_annotation:
-    pattern: /annotation
+endpoint_with_annotation_request:
+    pattern: /annotation-request
     defaults:
-        _controller: TestBundle:Root:annotation
+        _controller: TestBundle:Root:annotationRequest
+
+endpoint_with_annotation_response:
+    pattern: /annotation-response
+    defaults:
+        _controller: TestBundle:Root:annotationResponse
+
+endpoint_with_annotation_both:
+    pattern: /annotation-both
+    defaults:
+        _controller: TestBundle:Root:annotationBoth

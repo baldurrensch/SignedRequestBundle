@@ -72,12 +72,14 @@ You can provide your own signing service by tagging your service as `br_signed_r
 implementing the `Service\SigningServiceInterface`. The bundle will then call the respective functions of your
 service. You can take a look at the default service that is used (that just uses MD5) to see how it is setup.
 
-## Using the signed request annotation
+## Using the signed request / response annotation
 
 Instead of checking every request for a signature you can also add an annotation on a single controller function. In
-order to use that you would have to set `request_listener_enabled` to `false`.
+order to use that you would have to set `request_listener_enabled` to `false`. The same is true for signing responses.
+If you disable `response_listener_enabled`, you can use annotations to specify a controller action that should sign the
+response. Of course, you can also combine both annotations.
 
-Simply add the annotation in your controllers like that:
+### Example
 
 ```php
 <?php
@@ -85,13 +87,31 @@ Simply add the annotation in your controllers like that:
 namespace Acme\YourBundle\Controller;
 
 use BR\SignedRequestBundle\Annotations\SignedRequest;
+use BR\SignedRequestBundle\Annotations\SignedResponse;
 
 ...
 
     /**
      * @SignedRequest
      */
-    public function newAction()
+    public function fooAction()
+    {
+        ...
+    }
+
+    /**
+     * @SignedResponse
+     */
+    public function barAction()
+    {
+        ...
+    }
+
+    /**
+     * @SignedRequest
+     * @SignedResponse
+     */
+    public function bazAction()
     {
         ...
     }
@@ -100,5 +120,5 @@ use BR\SignedRequestBundle\Annotations\SignedRequest;
 
 ## To Do & Future plans
 
-- Implement a `@SignedResponse` annotation.
+None at the moment. Open an issue or submit a PR :)
 
