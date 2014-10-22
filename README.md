@@ -5,6 +5,7 @@ Symfony 2 bundle that provides request and response signing
 
 [![Build Status](https://travis-ci.org/baldurrensch/SignedRequestBundle.png?branch=master)](https://travis-ci.org/baldurrensch/SignedRequestBundle)
 [![Latest Stable Version](https://poser.pugx.org/br/signed-request-bundle/v/stable.png)](https://packagist.org/packages/br/signed-request-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e9fb2875-095a-43da-9f23-7c1d1a196f08/mini.png)](https://insight.sensiolabs.com/projects/e9fb2875-095a-43da-9f23-7c1d1a196f08)
 
 ## Introduction
 
